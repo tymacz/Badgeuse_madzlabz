@@ -1,5 +1,5 @@
 from fastapi import fastapi
-from fastapi import SQL.connector
+#from fastapi import SQL.connector
 
 app = FastAPI()
 
