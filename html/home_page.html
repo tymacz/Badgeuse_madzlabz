@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Styles/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <title>Mad'z Labz time manager</title>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <h3 id="nom_site">Mad'z Labz</h3>
+            <ul id="nav-bar">
+                <li><span class="material-symbols-outlined">home</span><a href="/html/home_page.html">Home</a></li>
+                <li><span class="material-symbols-outlined">calendar_month</span> <a href="/html/timetable.html">Timetable</a></li>
+                <li><span class="material-symbols-outlined">account_circle</span> <a href="/html/edit.html">clocking off</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <h1 id="title">Welcome to your timetable manager :</h1>
+    <div id="missing">Warning clocking off missing !</div>
+    <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Morning</td>
+                        <td id="morning"></td>
+                        <td id="morning"></td>
+                        <td id="morning"></td>
+                        <td id="morning"></td>
+                        <td id="morning"></td>
+                    </tr>
+                    <tr>
+                        <td>Afternoon</td>
+                        <td id="afternoon"></td>
+                        <td id="afternoon"></td>
+                        <td id="afternoon"></td>
+                        <td id="afternoon"></td>
+                        <td id="afternoon"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Global hours</td>
+                        <td>horaire total</td>
+                        <td>horaire total</td>
+                        <td>horaire total</td>
+                        <td>horaire total</td>
+                        <td>horaire total</td>
+                    </tr>
+
+                    <tr>
+                        <td>Overtime</td>
+                        <td>horaire sup</td>
+                        <td>horaire sup</td>
+                        <td>horaire sup</td>
+                        <td>horaire sup</td>
+                        <td>horaire sup</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+    </div>
+    <div id="test"></div>
+</main>
+    <script src="/home.js"></script>
+</body>
+
+</html>
