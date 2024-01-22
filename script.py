@@ -47,14 +47,16 @@ while continue_reading:
         sql = ("select arrive_matin,depart_matin,arrive_soir,depart_soir  from journee inner join employee on journee.id_badge = employee.id_badge where jour = %s and key_badge = %s")
         cursor.execute(sql,("2024-01-22",key_badge))
         value = cursor.fetchall()
-       # idSql = ("select id_badge from employee where key_badge = %s")
-       # cursor.execute(idSql,(key_badge))
-       # id = cursor.fetchall()
+        key = [key_badge]
+        idSql = ("select id_badge from employee where key_badge = %s")
+        cursor.execute(idSql,(key))
+        id = cursor.fetchone()
         if (len(value)==0):
-         sendSql : ("insert into journee (jour, arrive_matin,id_badge) values(%s,%s,%s)")
-         cursor.execute(senSql,("2024-01-22","9:00",id))
+         sendSql= ("insert into journee (jour, arrive_matin,id_badge) values(%s,%s,%s)")
+         cursor.execute(sendSql,("2024-01-22","9:00",id[0]))
          connection.commit()
-        print ("UID de la carte : ",value[0][1])
+        value1 =value[0].count(None)
+        print ("UID de la carte : ",value1)
         # Clee d authentification par defaut
         key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
         # Selection du tag
