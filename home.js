@@ -1,21 +1,51 @@
 const miss = document.getElementById("missing");
-miss.style.color="red";
-miss.style.display= "none";
+miss.style.color = "red";
+miss.style.display = "none";
 
-fetch("http://192.168.1.192:8000/pointage")
-    .then(response => response.json())
-    .then(data => {
-        if(data.arriver_aprem == "null" ||data.arriver_matin == "null" || data.depart_aprem=="null" ||data.depart_matin == "null"){
-            miss.style.display="flex"
-        }else{
-            const morning =document.querySelectorAll("td#morning")
-            for(let i =0 ; i<morning.length;i++){
-                morning[i].textContent = data.matin
+
+function user(){
+    const url = window.location.search
+    const urlParams = new URLSearchParams(url)
+    const usr = urlParams.get('id')
+    return usr
+}
+
+
+function clocking(id) {
+    console.log(id)
+    fetch(`http://192.168.1.213:8000/pointage/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            for (let index = 0; index < data.length; index++) {
+                for (let i = 0; i < 4; i++) {
+                    if (data[index][i] == null) {
+                        miss.style.display = "flex"
+                    }
+                }
             }
-            const afternoon =document.querySelectorAll("td#afternoon")
-            for(let i =0 ; i<morning.length;i++){
-                afternoon[i].textContent = data.aprem
+        })
+}
+function dashboard(id) {
+    fetch(`http://192.168.1.213:8000/post/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data[0])
+            if (data[0] == "RH") {
+                console.log("ok")
+                document.getElementById("manage").style.display = "flex"
             }
-        }
-        console.log(data.arriver_aprem, data.arriver_matin)
-    })
+        })
+}
+
+function redirect() {
+    const url = window.location.search
+    const urlParams = new URLSearchParams(url)
+    const usr = urlParams.get('id')
+    const a = document.querySelectorAll("a")
+    for (var i = 0; i < a.length; i++) {
+        a[i].href += `?id=${usr}`
+    }
+}
+
+window.onload = clocking(user()), dashboard(user()), redirect()

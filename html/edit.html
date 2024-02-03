@@ -3,23 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Styles/edit.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
-    <link rel="stylesheet" href="/Styles/edit.css">
+    
     <title>Edit clocking off</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <h3 id="nom_site">Mad'z Labz</h3>
-            <ul id="nav-bar">
-                <li><span class="material-symbols-outlined">home</span><a href="/html/home_page.html">Home</a></li>
-                <li><span class="material-symbols-outlined">calendar_month</span> <a href="/html/timetable.html">Timetable</a></li>
-                <li><span class="material-symbols-outlined">account_circle</span> <a href="/html/edit.html">clocking off</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav id="navbar">
+        <ul class="navbar-items flexbox-col">
+          <li class="navbar-logo flexbox-left">
+            <div class="navbar-item-inner flexbox">
+              <img class="image" srcset="http://192.168.1.213/logo.png" alt="logo">
+            </div>
+            <span>Mad'z Labz</span>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="./home_page.html">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="search-outline"></ion-icon>
+              </div>
+              <span class="link-text">Home</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="./timetable.html">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="home-outline"></ion-icon>
+              </div>
+              <span class="link-text">Timetable</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="./edit.html">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="folder-open-outline"></ion-icon>
+              </div>
+              <span class="link-text">Clocking off</span>
+            </a>
+          </li>
+          <li id="manage" class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left" href="#">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="pie-chart-outline"></ion-icon>
+              </div>
+              <span class="link-text">Dashboard</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     <main>
         <h1 id="title">Edit your clocking off :</h1>
         <div class="container">

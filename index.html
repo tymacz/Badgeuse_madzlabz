@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/Styles/index.css">
   <title>Connection</title>
 </head>
+
 <body>
-  <form action="">
-    <input type="text" name="name" id="name">
-    <input type="number" name="id" id="id">
-  </form>
-  <input type="button" value="Continue" onclick="window.location.href='http://10.191.14.110/html/home_page.html'">
+    <div class="container">
+      <img src="http://192.168.1.213/logo.png" alt="logo">
+      <form>
+
+        <div class="group">
+          <input type="text" id="name" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Your name</label>
+        </div>
+
+        <div class="group">
+          <input type="number" id="id" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Badge's number</label>
+        </div>
+
+      </form>
+      <input type="button" value="Continue" id="btn">
+    </div>
+  <script src="index.js"></script>
 </body>
+
 </html>
