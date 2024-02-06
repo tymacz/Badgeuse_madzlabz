@@ -11,7 +11,7 @@
     <ul class="navbar-items flexbox-col">
       <li class="navbar-logo flexbox-left">
         <div class="navbar-item-inner flexbox">
-          <img class="image" srcset="http://192.168.1.213/logo.png" alt="logo">
+          <img class="image" srcset="http://10.191.14.110/logo.png" alt="logo">
         </div>
         <span>Mad'z Labz</span>
       </li>
@@ -49,8 +49,14 @@
       </li>
     </ul>
   </nav>
+  <main>
+    <h1>Employee's Dashboard</h1>
+    <div id="container">
     <table>
         <tr>
+          <th>
+            Badge's ID
+          </th>
           <th>
             Lastname
           </th>
@@ -58,12 +64,18 @@
             Firstname
           </th>
           <th>
-            Badge's ID
+            job
           </th>
           <th>
             Badge's Key
           </th>
         </tr>
+        <tbody id="employee">
+
+        </tbody>
       </table>
+    </div>
+    </main>
+      <script src="../dashboard.js"></script>
 </body>
 </html>

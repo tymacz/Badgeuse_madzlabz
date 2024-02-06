@@ -15,7 +15,7 @@
         <ul class="navbar-items flexbox-col">
           <li class="navbar-logo flexbox-left">
             <div class="navbar-item-inner flexbox">
-              <img class="image" srcset="http://192.168.1.213/logo.png" alt="logo">
+              <img class="image" srcset="http://10.191.14.110/logo.png" alt="logo">
             </div>
             <span>Mad'z Labz</span>
           </li>
@@ -56,7 +56,12 @@
     <main>
         <h1 id="title">Edit your clocking off :</h1>
         <div class="container">
-        <table>
+          <div id="head">
+          <button style="--clr:#D90368" id="prev"><span>Previous week</span><i></i></button>
+          <span id="s"></span>
+          <button style="--clr:#D90368" id="next"><span>Next Week</span><i></i></button>
+        </div>
+        <table id="myTable">
             <thead>
                 <tr>
                     <th>Moments</th>

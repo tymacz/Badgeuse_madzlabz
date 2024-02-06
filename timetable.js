@@ -1,6 +1,6 @@
 const id = 1;
 const currentDate = new Date().toISOString().split('T')[0];
-const apiUrl = `http://192.168.1.213:8000/pointage/${id}/${currentDate}`;
+const apiUrl = `http://10.191.14.110:8000/pointage/${id}/${currentDate}`;
 
 // 1. Récupérer les données de l'API
 fetch(apiUrl)
