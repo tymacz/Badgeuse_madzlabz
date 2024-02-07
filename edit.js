@@ -1,10 +1,23 @@
 var weekday = NrSemaine(currentDate());
 let tab;
+
+const url = window.location.search;
+const urlParams = new URLSearchParams(url);
+let userId = urlParams.get('id');
+
+
+function user(){
+    const url = window.location.search;
+    const urlParams = new URLSearchParams(url);
+    userId = urlParams.get('id');
+    console.log(userId)
+    return userId;
+}
+
+let usr = user()
+
 function clockingoff(){
-const url = window.location.search
-const urlParams = new URLSearchParams(url)
-const usr = urlParams.get('id')
-fetch(`http://10.191.14.110:8000/pointage/${usr}`)
+fetch(`http://10.191.14.110:8000/pointage/${userId}`)
     .then(response => response.json())
     .then(data => {
         const day = currentDate().getUTCDay()
@@ -27,8 +40,6 @@ fetch(`http://10.191.14.110:8000/pointage/${usr}`)
                 for (let index = 0; index < 5; index++) {
                     const dataDate = new Date(data[index+ind][0])
                     console.log("data index+ind ",data[index+ind])
-                    const cellDate = new Date(data[index + ind][0]);
-                    cell.setAttribute('data-date', cellDate.toISOString());
                     for(let i =0;i<4; i++){
                         if(data[index][i]==0){
                             data[index][i] = null
@@ -75,25 +86,6 @@ function formatTime(seconds) {
     const hrsFormatted = (hrs % 12) || 12;
     return `${hrsFormatted.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')} ${ampm}`;
 }
-
-function edit(){
- // Select all td elements
-const tdElements = document.querySelectorAll('td');
-const btn = document.createElement("button")
-btn.innerText="edit"
-// Loop through each td element
-tdElements.forEach((tdElement) => {
-  // Check if the text content is "--:--"
-  if (tdElement.textContent === '--:--') {
-    // Remove the text from the td element
-    tdElement.innerText = '';
-
-    // Add the button to the td element
-    tdElement.appendChild(btn);
-  }
-});
-}
-
 const btnP = document.getElementById("prev")
 const btnN = document.getElementById("next")
 btnP.addEventListener("click",(event)=> {event.preventDefault(); week(2)});
@@ -129,12 +121,9 @@ function week(ind){
 }
     
 function redirect () {
-    const url = window.location.search
-    const urlParams = new URLSearchParams(url)
-    const usr = urlParams.get('id')
     const a = document.querySelectorAll("a")
     for (var i=0; i < a.length ; i++ ) {
-        a[i].href +=`?id=${usr}` 
+        a[i].href +=`?id=${userId}` 
     }
 }
 
@@ -144,11 +133,23 @@ function NrSemaine(madate) {
     return sem
     }
 
+    function getDateFromDayAndWeek(dayOfWeek, weekNumber) {
+        const CDate = new Date(2024, 1, 0); // Créez une date de référence pour l'année en cours
+        CDate.setDate(1); // Réglez la date sur le premier jour du mois (1er janvier)
+        console.log(CDate)
+        CDate.setDate(weekday*7)
+        console.log(CDate)
+        // Réglez le jour de la semaine en fonction du numéro du jour (1 pour lundi, 2 pour mardi, etc.)
+        CDate.setDate(CDate.getDate() + (dayOfWeek - CDate.getDay() + 7) % 7);
+        console.log((dayOfWeek - CDate.getDay() + 7) % 8)
+        // Réglez le jour du mois en fonction du numéro de la semaine
+        CDate.setDate(CDate.getDate())
+        
+        return CDate;
+      }
+
 function editCase(){
-    const url = window.location.search
-    const urlParams = new URLSearchParams(url)
-    const usr = urlParams.get('id')
-    fetch(`http://10.191.14.110:8000/pointage/${usr}`)
+    fetch(`http://10.191.14.110:8000/pointage/${userId}`)
     .then(response => response.json())
     .then(data => {
         console.log(data[0][0])
@@ -186,9 +187,14 @@ function editCase(){
                 colonne = null;
             }
 
-            dateApelle = //data[colonne][choix]
             console.log("choix : ", choix)
-    
+            const date = getDateFromDayAndWeek(colonne,weekday)
+            const localDate = date.toLocaleString("fr-FR").split(" ")
+            let formatLocalDate=String(localDate).replace(/\//g,"-")
+            formatLocalDate= formatLocalDate.split(",")
+            let dateParts = formatLocalDate[0].split('-');
+            let reformattedDateStr = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
+            console.log(reformattedDateStr)
             // Vérifie si la cellule cliquée est différente de la cellule d'en-tête
             if (cell.tagName === 'TD') {
                 const oldValue = cell.textContent;
@@ -215,7 +221,7 @@ function editCase(){
                         // Appelle updateEmployee avec les valeurs appropriées
                         if(choix != null)
                         {
-                            updateEmployee(choix, dateApelle, input.value);
+                            updateEmployee(choix, reformattedDateStr, input.value, userId);
                         }
                         
                     } else if (e.key === 'Escape') {
@@ -227,6 +233,7 @@ function editCase(){
                 // Gère l'événement de pression de touche sur l'entrée
                 input.addEventListener('keydown', function (e) {
                     if (e.key === 'Enter') {
+                        console.log(input.value);
                         // Met à jour la valeur de la cellule avec la nouvelle valeur de l'entrée
                         cell.textContent = input.value;
                     } else if (e.key === 'Escape') {
@@ -248,33 +255,49 @@ function editCase(){
     
 }
 
-function updateEmployee(choix, jour, heure) {
-    const id_badge = 2; // Vous avez mentionné que l'id_badge est toujours égal à 2
+function updateEmployee(choix, jour, heure, userId) {
+  // Configurer l'en-tête de la requête pour indiquer que les données sont au format JSON
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+ 
+    console.log(userId)
+  
+ 
+  let user = parseInt(userId)
 
-    // Construire l'URL de l'API
-    const url = `http://10.191.14.110:8000/modifhorraire/${choix}/${jour}/${heure}/${id_badge}`;
+  // Effectuer la requête HTTP
+  fetch(`http://10.191.14.110:8000/modifhorraire/${choix}/${jour}/${heure}/${userId}`, {
+    method: 'POST', // Spécifier la méthode HTTP POST
+    headers: headers, // Ajouter l'en-tête Content-Type
+    body: JSON.stringify({ // Convertir les données en format JSON
+      choix: choix,
+      jour: jour,
+      heure: heure,
+      userId: userId
+    })
+  })
+    .then(response => response.json()) // Convertir la réponse en JSON
+    .then(data => {
+      // Traiter la réponse de la requête POST
+      console.log('Réponse de la requête POST :', data);
+    })
+    .catch(error => {
+      console.error('Erreur lors de la requête POST :', error);
+      // Gérer les erreurs de la requête POST
+    });
+}
 
-    // Configurer les options de la requête POST
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ choix, jour, heure, id_badge }) // Convertir les données en format JSON
-    };
-
-    // Effectuer la requête HTTP
-    fetch(url, options)
+function dashboard() {
+    fetch(`http://10.191.14.110:8000/post/${usr}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data); // Gérer la réponse de l'API
-            // Vous pouvez ajouter d'autres actions à effectuer après la réponse de l'API
+            if (data[0] == "RH") {
+                console.log("ok")
+                document.getElementById("manage").style.display = "flex"
+            }
         })
-        .catch(error => {
-            console.error('Erreur lors de la requête POST :', error);
-            // Gérer les erreurs de la requête POST
-        });
 }
 
 
-window.onload = clockingoff(),redirect(),edit(),editCase()
+window.onload = clockingoff(),redirect(),editCase(),dashboard()

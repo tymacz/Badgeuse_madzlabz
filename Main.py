@@ -101,8 +101,17 @@ def upd_employee(id: int, nom: str, prenom: str, poste: str, key_badge: str):
 
     return {"res": "good"}
 
-@app.post("/pointage/{nom}/{prenom}/{poste}/{key_badge}")
-def upd_employee(nom: str, prenom: str, poste: str, key_badge: str):
+@app.get("/editip/{id}/{key_badge}")
+def upd_employee(id: int, key_badge: str):
+    sql = "update employee set key_badge = %s where id_badge = %s"
+
+    cursor.execute(sql, (id ,key_badge))
+    connection.commit()
+
+    return {"res": "good"}
+
+@app.post("/addemp/{nom}/{prenom}/{poste}/{key_badge}")
+def add_employee(nom: str, prenom: str, poste: str, key_badge: str):
      cursor.execute("SELECT MAX(id_badge) FROM employee")
      last_id = cursor.fetchone()[0]
      new_id = last_id + 1 if last_id is not None else 1

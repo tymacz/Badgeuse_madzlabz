@@ -83,12 +83,9 @@ function clocking() {
         })
 }
 function dashboard() {
-    console.log(usr)
-    
     fetch(`http://10.191.14.110:8000/post/${usr}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             if (data[0] == "RH") {
                 console.log("ok")
                 document.getElementById("manage").style.display = "flex"
